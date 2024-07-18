@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "664366100917",
+    "project_id": "quanlybancaphe-eb429",
+    "storage_bucket": "quanlybancaphe-eb429.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664366100917:android:a72addcad3c5f4ab5ba9fc",
+        "android_client_info": {
+          "package_name": "com.example.quan_ly_ban_ca_phe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJk9mOm-EQIiZrLQTr8SllnMTAtDqwDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
