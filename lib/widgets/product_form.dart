@@ -51,7 +51,7 @@ class ProductForm extends StatelessWidget {
                     Text(
                       product.newPrice.toStringAsFixed(3) + 'đ',
                       style: GoogleFonts.roboto(
-                          color: black,
+                          color: blue,
                           fontSize: 17,
                           fontWeight: FontWeight.bold),
                     ),
@@ -63,7 +63,6 @@ class ProductForm extends StatelessWidget {
                 )
               ],
             )
-            // Add other product details as needed
           ],
         ),
       ),

@@ -38,18 +38,15 @@ class _DeleteCategoryPageState extends State<DeleteCategoryPage> {
 
   Future<void> deleteCategory(Categories categoryToDelete) async {
     try {
-      // Remove category from the list locally
       setState(() {
         categories.remove(categoryToDelete);
       });
 
-      // Find the document by its id
       QuerySnapshot snapshot = await FirebaseFirestore.instance
           .collection('Danh mục')
           .where('id', isEqualTo: categoryToDelete.id)
           .get();
 
-      // Delete the document
       for (var doc in snapshot.docs) {
         await FirebaseFirestore.instance
             .collection('Danh mục')

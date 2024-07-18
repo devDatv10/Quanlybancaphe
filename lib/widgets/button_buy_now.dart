@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quan_ly_ban_ca_phe/themes/theme.dart';
@@ -18,7 +17,7 @@ class ButtonBuyNow extends StatelessWidget {
         width: 160,
         child: Container(
           decoration: BoxDecoration(
-            color: primaryColors,
+            color: blue,
             borderRadius: BorderRadius.circular(40)
           ),
           child: Center(

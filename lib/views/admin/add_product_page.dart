@@ -17,14 +17,8 @@ class AddProductPage extends StatefulWidget {
 }
 
 class _AddProductPageState extends State<AddProductPage> {
-  String _selectedCategory = 'Coffee';
-  List<String> _categories = [
-    'Coffee',
-    'Trà',
-    'Danh sách sản phẩm',
-    'Sản phẩm phổ biến',
-    'Sản phẩm nổi bật',
-  ];
+  String _selectedCategory = '';
+  List<String> _categories = [];
 
   TextEditingController _idController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -36,7 +30,23 @@ class _AddProductPageState extends State<AddProductPage> {
   File? _imagePath;
   File? _imageDetailPath;
 
-  //
+  @override
+  void initState() {
+    super.initState();
+    fetchCategories();
+  }
+
+  Future<void> fetchCategories() async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection('Danh mục').get();
+    List<String> categories =
+        snapshot.docs.map((doc) => doc['name'].toString()).toList();
+    setState(() {
+      _categories = categories;
+      _selectedCategory = categories.isNotEmpty ? categories[0] : '';
+    });
+  }
+
   Future<void> _pickImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -47,7 +57,6 @@ class _AddProductPageState extends State<AddProductPage> {
     }
   }
 
-  //
   Future<void> _pickImageDetail() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -59,33 +68,33 @@ class _AddProductPageState extends State<AddProductPage> {
   }
 
   Future<String> uploadImage(File? imageFile) async {
-  if (imageFile == null) return '';
+    if (imageFile == null) return '';
 
-  Completer<String> completer = Completer();
-  await Future(() async {
-    try {
-      // Ensure the user is authenticated
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        throw FirebaseAuthException(
-          message: "User is not authenticated",
-          code: "user-not-authenticated",
-        );
+    Completer<String> completer = Completer();
+    await Future(() async {
+      try {
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user == null) {
+          throw FirebaseAuthException(
+            message: "User is not authenticated",
+            code: "user-not-authenticated",
+          );
+        }
+
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+        Reference ref =
+            FirebaseStorage.instance.ref().child('images/$fileName.jpg');
+        await ref.putFile(imageFile);
+        String downloadURL = await ref.getDownloadURL();
+        completer.complete(downloadURL);
+      } catch (e) {
+        print('Error uploading image: $e');
+        completer.complete('');
       }
+    });
 
-      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      Reference ref = FirebaseStorage.instance.ref().child('images/$fileName.jpg');
-      await ref.putFile(imageFile);
-      String downloadURL = await ref.getDownloadURL();
-      completer.complete(downloadURL);
-    } catch (e) {
-      print('Error uploading image: $e');
-      completer.complete('');
-    }
-  });
-
-  return completer.future;
-}
+    return completer.future;
+  }
 
   Future<void> addProductToFirestore(
     String categoryCollection,
@@ -98,22 +107,22 @@ class _AddProductPageState extends State<AddProductPage> {
     String imagePath,
     String imageDetailPath,
   ) async {
-    // Kiểm tra xem có thông tin bắt buộc nào chưa được nhập không
-  if (id.isEmpty ||
-      name.isEmpty ||
-      description.isEmpty ||
-      oldPrice <= 0 ||
-      newPrice <= 0 ||
-      rating.isEmpty ||
-      imagePath.isEmpty ||
-      imageDetailPath.isEmpty) {
-    _showAlert('Thông báo', 'Các field không được để trống, vui lòng thử lại.');
-    return;
-  }
+    if (id.isEmpty ||
+        name.isEmpty ||
+        description.isEmpty ||
+        oldPrice <= 0 ||
+        newPrice <= 0 ||
+        rating.isEmpty ||
+        imagePath.isEmpty ||
+        imageDetailPath.isEmpty) {
+      _showAlert(
+          'Thông báo', 'Các field không được để trống, vui lòng thử lại.');
+      return;
+    }
     try {
       await FirebaseFirestore.instance.collection(categoryCollection).add({
         'id': id,
-        'category' : categoryCollection,
+        'category': categoryCollection,
         'name': name,
         'description': description,
         'oldPrice': oldPrice,
@@ -124,14 +133,13 @@ class _AddProductPageState extends State<AddProductPage> {
       });
       print('Product added to Firestore successfully');
       _showAlert('Thông báo', 'Thêm sản phẩm vào Firebase thành công.');
-      // Reset text controllers
       _idController.clear();
       _nameController.clear();
       _descriptionController.clear();
       _oldPriceController.clear();
       _newPriceController.clear();
       _ratingController.clear();
-      //
+
       setState(() {
         _imagePath = null;
         _imageDetailPath = null;
@@ -197,7 +205,6 @@ class _AddProductPageState extends State<AddProductPage> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    // Xử lý khi nhấn nút "Thêm sản phẩm"
                     String id = _idController.text;
                     String name = _nameController.text;
                     String categoryCollection = _selectedCategory;
@@ -208,12 +215,10 @@ class _AddProductPageState extends State<AddProductPage> {
                         double.tryParse(_newPriceController.text) ?? 0;
                     String rating = _ratingController.text;
 
-                    // Upload images to Firebase Storage and get download URLs
                     String imagePath = await uploadImage(_imagePath);
                     String imageDetailPath =
                         await uploadImage(_imageDetailPath);
 
-                    // Thêm sản phẩm vào cơ sở dữ liệu
                     await addProductToFirestore(
                       categoryCollection,
                       id,
@@ -264,10 +269,9 @@ class _AddProductPageState extends State<AddProductPage> {
                   return DropdownMenuItem<String>(
                     value: category,
                     child: Tooltip(
-                      message:
-                          category, // Hiển thị thông báo nếu nội dung quá dài
+                      message: category,
                       child: Container(
-                        width: 120, // Giới hạn chiều dài của mục
+                        width: 120,
                         child: Text(
                           category,
                           overflow: TextOverflow.ellipsis,
@@ -278,7 +282,7 @@ class _AddProductPageState extends State<AddProductPage> {
                 }).toList(),
                 onChanged: (String? value) {
                   setState(() {
-                    _selectedCategory = value ?? 'Coffee';
+                    _selectedCategory = value ?? '';
                   });
                 },
               ),
@@ -324,7 +328,6 @@ class _AddProductPageState extends State<AddProductPage> {
   Widget buildImagePicker() {
     return Column(
       children: [
-        // Hình ảnh sản phẩm
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -388,7 +391,6 @@ class _AddProductPageState extends State<AddProductPage> {
         SizedBox(
           height: 20,
         ),
-        // Hình ảnh chi tiết sản phẩm
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:quan_ly_ban_ca_phe/views/admin/admin_page.dart';
 import 'package:quan_ly_ban_ca_phe/views/auth/toggle/login_login_register_switcher_admin_page.dart';
-import 'package:quan_ly_ban_ca_phe/views/auth/toggle/login_register_switcher_user_page.dart';
-import 'package:quan_ly_ban_ca_phe/views/app/home_page.dart';
 
 class AuthAdminPage extends StatefulWidget {
   const AuthAdminPage({Key? key}) : super(key: key);

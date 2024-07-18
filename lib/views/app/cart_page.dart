@@ -28,12 +28,8 @@ class _CartPageState extends State<CartPage> {
   @override
   void initState() {
     super.initState();
-    // Gọi hàm lấy dữ liệu từ Firebase
     fetchCartItems();
   }
-
-  // Hàm để lấy dữ liệu từ cơ sở dữ liệu Firebase
-  // Trong _CartPageState
   Future<void> fetchCartItems() async {
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
@@ -42,7 +38,7 @@ class _CartPageState extends State<CartPage> {
       List<CartItem> items = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         return CartItem(
-          doc.id, // Lấy ID của sản phẩm
+          doc.id,
           data['productImage'],
           data['productName'],
           data['newPrice'].toDouble(),
@@ -98,7 +94,6 @@ class _CartPageState extends State<CartPage> {
             const SizedBox(
               height: 20,
             ),
-            // Kiểm tra xem giỏ hàng có trống hay không
             cartItems.isEmpty
                 ? Column(
                   children: [
@@ -113,7 +108,6 @@ class _CartPageState extends State<CartPage> {
                 )
                 : Column(
                     children: [
-                      // Truyền danh sách sản phẩm vào OrderForm
                       OrderForm(cartItems: cartItems),
                     ],
                   ),
@@ -121,7 +115,6 @@ class _CartPageState extends State<CartPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          // backgroundColor: Colors.transparent,
           elevation: 0,
           selectedItemColor: blue,
           type: BottomNavigationBarType.fixed,
@@ -144,7 +137,6 @@ class _CartPageState extends State<CartPage> {
             BottomNavigationBarItem(
               icon: GestureDetector(
                 onTap: () {
-                  // Điều hướng đến trang mới ở đây
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -187,7 +179,6 @@ class _CartPageState extends State<CartPage> {
   }
 }
 
-// Trong class CartItem, thêm trường productId
 class CartItem {
   String productId;
   final String productImage;

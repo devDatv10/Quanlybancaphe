@@ -86,12 +86,12 @@ class _UpdateCategoryPageState extends State<UpdateCategoryPage> {
                         String description = _editDescriptionController.text;
 
                         updateCategoryInFirestore(
-                          category.docId!, // Sử dụng docId để cập nhật
+                          category.docId!,
                           name,
                           description,
                         );
 
-                        Navigator.pop(context); // Đóng trang sau khi cập nhật
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green),

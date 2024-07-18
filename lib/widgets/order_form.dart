@@ -17,27 +17,24 @@ class OrderForm extends StatefulWidget {
 }
 
 class _OrderFormState extends State<OrderForm> {
-  // Hàm để xóa sản phẩm từ giỏ hàng
   void deleteProductFromCart(int index) async {
-  showCupertinoDialog(
+  showDialog(
     context: context,
     builder: (context) {
-      return CupertinoAlertDialog(
+      return AlertDialog(
         title: Text(
           "Thông báo",
           style: GoogleFonts.arsenal(
-            color: primaryColors,
+            color: blue,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
         content: Text("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng không?"),
         actions: [
-          CupertinoDialogAction(
-            isDestructiveAction: true,
+          TextButton(
             child: Text("Xóa"),
             onPressed: () async {
-              // Thực hiện xóa sản phẩm từ cả giỏ hàng và Firestore
               setState(() {
                 widget.cartItems.removeAt(index);
               });
@@ -48,13 +45,13 @@ class _OrderFormState extends State<OrderForm> {
               _showAlert('Thông báo', 'Xóa sản phẩm khỏi giỏ hàng thành công.');
             },
           ),
-          CupertinoDialogAction(
+          TextButton(
             child: Text(
               "Hủy",
               style: TextStyle(color: blue),
             ),
             onPressed: () {
-              Navigator.pop(context); // Đóng hộp thoại
+              Navigator.pop(context);
             },
           ),
         ],
@@ -63,13 +60,10 @@ class _OrderFormState extends State<OrderForm> {
   );
 }
 
-// Hàm để xóa sản phẩm từ cơ sở dữ liệu Firestore
 Future<void> removeFromFirestore(int index) async {
   try {
-    // Lấy ID của sản phẩm trong Firestore
     String productId = await getProductId(index);
 
-    // Thực hiện xóa sản phẩm từ Firestore
     await FirebaseFirestore.instance
         .collection('Giỏ hàng')
         .doc(productId)
@@ -82,13 +76,11 @@ Future<void> removeFromFirestore(int index) async {
   }
 }
 
-// Hàm để lấy ID của sản phẩm từ Firestore dựa trên index
 Future<String> getProductId(int index) async {
   try {
     QuerySnapshot<Map<String, dynamic>> querySnapshot =
         await FirebaseFirestore.instance.collection('Giỏ hàng').get();
 
-    // Lấy ID của sản phẩm trong Firestore
     String productId = querySnapshot.docs[index].id;
 
     return productId;
@@ -98,7 +90,6 @@ Future<String> getProductId(int index) async {
   }
 }
 
-//
 void _showAlert(String title, String content) {
     showCupertinoDialog(
       context: context,
@@ -106,7 +97,7 @@ void _showAlert(String title, String content) {
         return CupertinoAlertDialog(
           title: Text(
             title,
-            style: GoogleFonts.arsenal(color: primaryColors),
+            style: GoogleFonts.arsenal(color: blue),
           ),
           content: Text(content),
           actions: <Widget>[
@@ -132,7 +123,7 @@ void _showAlert(String title, String content) {
         Container(
           height: 650,
           child: ListView.builder(
-            scrollDirection: Axis.vertical, // Để cho phép cuộn theo chiều ngang
+            scrollDirection: Axis.vertical,
             itemCount: widget.cartItems.length,
             itemBuilder: (context, index) {
               var item = widget.cartItems[index];
@@ -152,7 +143,6 @@ void _showAlert(String title, String content) {
                 endActionPane: ActionPane(motion: StretchMotion(), children: [
                   SlidableAction(
                     onPressed: ((context) {
-                      //comand delete
                       deleteProductFromCart(index);
                     }),
                     borderRadius: BorderRadius.circular(18.0),
@@ -164,7 +154,7 @@ void _showAlert(String title, String content) {
                 ]),
                 child: Container(
                   margin: EdgeInsets.symmetric(
-                      vertical: 10), // Khoảng cách giữa các Container
+                      vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(18.0),
@@ -172,7 +162,6 @@ void _showAlert(String title, String content) {
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Image.network(
@@ -187,7 +176,7 @@ void _showAlert(String title, String content) {
                               item.productName,
                               style: GoogleFonts.arsenal(
                                   fontSize: 18,
-                                  color: primaryColors,
+                                  color: blue,
                                   fontWeight: FontWeight.bold),
                             ),
                             SizedBox(
@@ -196,7 +185,7 @@ void _showAlert(String title, String content) {
                             Text(
                               item.totalPrice.toStringAsFixed(3) + 'đ',
                               style: GoogleFonts.roboto(
-                                color: primaryColors,
+                                color: blue,
                                 fontSize: 16,
                               ),
                             ),
@@ -210,11 +199,10 @@ void _showAlert(String title, String content) {
                                     width: 20,
                                     height: 20,
                                     decoration: BoxDecoration(
-                                        color: primaryColors,
+                                        color: blue,
                                         shape: BoxShape.circle),
                                     child: GestureDetector(
                                       onTap: () {
-                                        // Xử lý khi nhấn nút giảm
                                       },
                                       child: Icon(
                                         Icons.remove,
@@ -237,7 +225,7 @@ void _showAlert(String title, String content) {
                                     width: 20,
                                     height: 20,
                                     decoration: BoxDecoration(
-                                        color: primaryColors,
+                                        color: blue,
                                         shape: BoxShape.circle),
                                     child: GestureDetector(
                                       onTap: () {
@@ -263,7 +251,7 @@ void _showAlert(String title, String content) {
                                 color: white,
                                 borderRadius: BorderRadius.circular(18.0),
                                 border: Border.all(
-                                  color: primaryColors,
+                                  color: blue,
                                   width: 1,
                                 ),
                               ),
@@ -271,7 +259,7 @@ void _showAlert(String title, String content) {
                                 child: Text(
                                   item.selectedSize,
                                   style: GoogleFonts.arsenal(
-                                      color: primaryColors,
+                                      color: blue,
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),
                                 ),

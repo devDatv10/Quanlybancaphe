@@ -116,15 +116,16 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //slide adv
-              // SlideImage(
-              //   height: 180,
-              // ),
-              // SizedBox(height: 15),
-              // //product category
+              Text('DANH MỤC',
+                  style: GoogleFonts.arsenal(
+                      fontSize: 20, fontWeight: FontWeight.bold, color: blue)),
+              SizedBox(
+                height: 5.0,
+              ),
               ProductCategory(),
-              // SizedBox(height: 15),
-              // //product popular item
+              SizedBox(
+                height: 5.0,
+              ),
               Text('SẢN PHẨM PHỔ BIẾN',
                   style: GoogleFonts.arsenal(
                       fontSize: 20, fontWeight: FontWeight.bold, color: blue)),
@@ -135,7 +136,6 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 10.0,
               ),
-              //more product popular
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -148,7 +148,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-              // hot product
               Text('SẢN PHẨM NỔI BẬT',
                   style: GoogleFonts.arsenal(
                       fontSize: 20, fontWeight: FontWeight.bold, color: blue)),
@@ -162,7 +161,6 @@ class _HomePageState extends State<HomePage> {
       ),
       //bottom bar
       bottomNavigationBar: BottomNavigationBar(
-          // backgroundColor: Colors.transparent,
           elevation: 0,
           selectedItemColor: blue,
           type: BottomNavigationBarType.fixed,

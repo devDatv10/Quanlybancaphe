@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -43,7 +42,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     updateTotalPrice();
   }
 
-  //
   void decrementQuantity() {
     setState(() {
       if (quantityCount > 1) {
@@ -53,7 +51,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     });
   }
 
-  //
   void incrementQuantity() {
     setState(() {
       quantityCount++;
@@ -70,8 +67,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       totalPrice = productPrice * quantityCount;
     });
   }
-
-  // Function to add item to the cart collection
+  
   Future<void> addToCartFirestore(CartItem item) async {
     try {
       DocumentReference docRef = await _firestore.collection('Giỏ hàng').add({
@@ -84,7 +80,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         'selectedSize': item.selectedSize,
       });
 
-      // Lấy ID của sản phẩm vừa được thêm vào Firestore và cập nhật lại cho item
       item.productId = docRef.id;
 
       print('Item added to cart collection successfully with ID: ${docRef.id}');
@@ -94,7 +89,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     }
   }
 
-// Trong _ProductDetailPageState
   void addToCart(String productId, String productImage, String productName,
       double newPrice, double totalPrice, int quantity, String selectedSize) {
     CartItem item = CartItem(
@@ -111,13 +105,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       cartItems.add(item);
     });
 
-    // Add item to the 'Giỏ hàng' collection
     addToCartFirestore(item);
-
-    // Show a snackbar or some other UI feedback to indicate success
   }
 
-  //
   void _showAlert(String title, String content) {
     showCupertinoDialog(
       context: context,
@@ -125,7 +115,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         return CupertinoAlertDialog(
           title: Text(
             title,
-            style: GoogleFonts.arsenal(color: primaryColors),
+            style: GoogleFonts.arsenal(color: blue),
           ),
           content: Text(content),
           actions: <Widget>[
@@ -143,7 +133,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       },
     );
   }
-  //
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +157,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     color: white,
                   ),
                   onPressed: () {
-                    // Xử lý khi nhấn nút quay lại
                     Get.back();
                   },
                 ),
@@ -183,7 +171,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     color: white,
                   ),
                   onPressed: () {
-                    // Xử lý khi nhấn nút giỏ hàng
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => CartPage(),
                     ));
@@ -198,14 +185,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             decoration: BoxDecoration(color: white),
             child: Column(
               children: [
-                //product name and icon favorite
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Text(
                     widget.product.name,
                     style: GoogleFonts.arsenal(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
-                        color: primaryColors),
+                        color: blue),
                   ),
                   const SizedBox(
                     width: 15,
@@ -214,11 +200,10 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       onPressed: () {},
                       icon: Icon(
                         isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: primaryColors,
+                        color: blue,
                         size: 30,
                       ))
                 ]),
-                //product image and description
                 Padding(
                   padding: const EdgeInsets.only(right: 18),
                   child: Row(
@@ -285,7 +270,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 SizedBox(
                   height: 20,
                 ),
-                //product quantity
                 Padding(
                   padding: const EdgeInsets.only(left: 18, right: 18),
                   child: Row(
@@ -328,7 +312,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               width: 30,
                               height: 30,
                               decoration: BoxDecoration(
-                                  color: primaryColors, shape: BoxShape.circle),
+                                  color: blue, shape: BoxShape.circle),
                               child: GestureDetector(
                                 onTap: incrementQuantity,
                                 child: Icon(
@@ -365,7 +349,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         style: GoogleFonts.roboto(
                             fontSize: 19,
                             fontWeight: FontWeight.bold,
-                            color: primaryColors),
+                            color: blue),
                       )
                     ],
                   ),
@@ -425,7 +409,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                 SizedBox(
                   height: 60,
                 ),
-                //button add to cart and buy now
                 Padding(
                   padding: const EdgeInsets.only(left: 18, right: 18),
                   child: IntrinsicHeight(

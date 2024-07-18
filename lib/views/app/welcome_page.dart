@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quan_ly_ban_ca_phe/themes/theme.dart';
-import 'package:quan_ly_ban_ca_phe/views/auth/chosse_login_account_page.dart';
 import 'package:quan_ly_ban_ca_phe/widgets/button_get_started.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -15,15 +13,6 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
   final String appTitle = 'QUẢN LÝ BÁN CÀ PHÊ';
   @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   var d = Duration(seconds: 7);
-  //   Future.delayed(d, () {
-  //     Get.offAll(() => ChooseLoginAccountPage());
-  //   });
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

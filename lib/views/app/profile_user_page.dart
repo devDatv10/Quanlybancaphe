@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quan_ly_ban_ca_phe/models/users.dart';
 import 'package:quan_ly_ban_ca_phe/themes/theme.dart';
@@ -43,14 +41,12 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
     }
   }
 
-  //
   void _selectedBottomBar(int index) {
     setState(() {
       _selectedIndexBottomBar = index;
     });
   }
 
-  //
   void _showConfirmExit() {
     notificationDialog(
       context: context,
@@ -154,34 +150,41 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                     ],
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    user.userName,
-                    style: TextStyle(fontSize: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        user.userName,
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(width: 5,),
+                      Icon(Icons.verified, color: Colors.blue, size: 18,)
+                    ],
                   ),
                   SizedBox(height: 10.0),
                   Text(user.email),
                   SizedBox(height: 20.0),
-                  SizedBox(
-                    width: 160,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Chỉnh sửa',
-                            style: TextStyle(color: white, fontSize: 18),
-                          ),
-                          Icon(
-                            Icons.edit,
-                            color: white,
-                            size: 18,
-                          )
-                        ],
-                      ),
-                      style: ElevatedButton.styleFrom(backgroundColor: blue),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   width: 160,
+                  //   child: ElevatedButton(
+                  //     onPressed: () {},
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Text(
+                  //           'Chỉnh sửa',
+                  //           style: TextStyle(color: white, fontSize: 18),
+                  //         ),
+                  //         Icon(
+                  //           Icons.edit,
+                  //           color: white,
+                  //           size: 18,
+                  //         )
+                  //       ],
+                  //     ),
+                  //     style: ElevatedButton.styleFrom(backgroundColor: blue),
+                  //   ),
+                  // ),
                   SizedBox(height: 20.0),
                   Divider(),
                   SizedBox(height: 30.0),
@@ -191,13 +194,18 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                       onPress: () {},
                       textColor: grey),
                   ProfileMenuUser(
-                      title: 'Đơn hàng',
-                      startIcon: Icons.local_shipping,
+                      title: 'Vị trí',
+                      startIcon: Icons.pin_drop,
                       onPress: () {},
                       textColor: grey),
                   ProfileMenuUser(
-                      title: 'Phản hồi',
-                      startIcon: Icons.mark_email_unread,
+                      title: 'Thời tiết hôm nay',
+                      startIcon: Icons.thermostat,
+                      onPress: () {},
+                      textColor: grey),
+                      ProfileMenuUser(
+                      title: 'Tài khoản ngân hàng',
+                      startIcon: Icons.account_balance,
                       onPress: () {},
                       textColor: grey),
                   ProfileMenuUser(

@@ -21,7 +21,6 @@ class _SizeProductsState extends State<SizeProducts> {
       onTap: () {
         setState(() {
           isPressed = !isPressed;
-          // Gọi callback để truyền kích thước đã chọn về ProductDetailPage
           widget.onSizeSelected(widget.titleSize);
         });
       },
@@ -29,12 +28,12 @@ class _SizeProductsState extends State<SizeProducts> {
         height: 25,
         width: 60,
         decoration: BoxDecoration(
-          color: isPressed ? primaryColors : white,
+          color: isPressed ? blue : white,
           borderRadius: BorderRadius.circular(18.0),
           border: isPressed
               ? null
               : Border.all(
-                  color: primaryColors,
+                  color: blue,
                   width: 1,
                 ),
         ),
@@ -42,7 +41,7 @@ class _SizeProductsState extends State<SizeProducts> {
           child: Text(
             widget.titleSize,
             style: GoogleFonts.arsenal(
-                color: isPressed ? white : primaryColors,
+                color: isPressed ? white : blue,
                 fontSize: 17,
                 fontWeight: FontWeight.bold),
           ),

@@ -24,7 +24,7 @@ class _RevenuePageState extends State<RevenuePage> {
                 'Doanh số bán hàng',
                 style: GoogleFonts.arsenal(
                     fontSize: 30,
-                    color: primaryColors,
+                    color: blue,
                     fontWeight: FontWeight.bold),
               ),
             )

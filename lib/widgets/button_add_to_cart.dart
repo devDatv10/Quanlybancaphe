@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quan_ly_ban_ca_phe/themes/theme.dart';
@@ -18,13 +17,13 @@ class ButtonAddToCart extends StatelessWidget {
         width: 160,
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: primaryColors),
+            border: Border.all(color: blue),
             borderRadius: BorderRadius.circular(40)
           ),
           child: Center(
             child: Text(
               text,
-              style: GoogleFonts.arsenal(color: primaryColors, fontWeight: FontWeight.bold, fontSize: 19),
+              style: GoogleFonts.arsenal(color: blue, fontWeight: FontWeight.bold, fontSize: 19),
             ),
           ),
         ),

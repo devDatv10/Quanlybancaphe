@@ -229,7 +229,7 @@ Future<void> updateProductInFirestore(
         return CupertinoAlertDialog(
           title: Text(
             title,
-            style: GoogleFonts.arsenal(color: primaryColors),
+            style: GoogleFonts.arsenal(color: blue),
           ),
           content: Text(content),
           actions: <Widget>[
@@ -262,7 +262,6 @@ Future<void> updateProductInFirestore(
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //
         SingleChildScrollView(
           physics: NeverScrollableScrollPhysics(),
           child: Padding(
@@ -338,7 +337,6 @@ Future<void> updateProductInFirestore(
             ),
           ),
         ),
-        // Hiển thị danh sách sản phẩm
         Expanded(
           child: Padding(
             padding:
@@ -379,14 +377,14 @@ Future<void> updateProductInFirestore(
                               productList[index].name,
                               style: GoogleFonts.arsenal(
                                   fontSize: 18,
-                                  color: primaryColors,
+                                  color: blue,
                                   fontWeight: FontWeight.bold),
                             ),
                             Text(
                               productList[index].newPrice.toStringAsFixed(3) +
                                   'đ',
                               style: GoogleFonts.roboto(
-                                color: primaryColors,
+                                color: blue,
                                 fontSize: 16,
                               ),
                             ),
@@ -437,7 +435,6 @@ Future<void> updateProductInFirestore(
           ),
         ),
 
-        //
         Padding(
           padding: const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 18.0),
           child: MyButton(
@@ -450,7 +447,6 @@ Future<void> updateProductInFirestore(
     );
   }
 
-  //
   Widget buildTextFieldWithLabel(String label, TextEditingController controller,
       [TextInputType inputType = TextInputType.text]) {
     return Padding(

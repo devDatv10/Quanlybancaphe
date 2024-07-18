@@ -35,7 +35,6 @@ class _RegisterUserWithEmailAndPasswordPageState
   bool isObsecurePassword = false;
   bool isObsecureConfirmPassword = false;
 
-  //
   Future registerUser() async {
     String email = _emailController.text.trim();
     int phoneNumber = int.tryParse(_phoneNumberController.text.trim()) ?? 0;
@@ -83,7 +82,6 @@ class _RegisterUserWithEmailAndPasswordPageState
     }
   }
 
-  //
   void dispose() {
     _emailController.dispose();
     _phoneNumberController.dispose();
@@ -95,7 +93,6 @@ class _RegisterUserWithEmailAndPasswordPageState
     super.dispose();
   }
 
-  //
   Future addUserDetail(String email, int phoneNumber, String address,
       String userName, String passWord, String confirmPassword) async {
     await FirebaseFirestore.instance.collection('Users').add({
@@ -108,7 +105,6 @@ class _RegisterUserWithEmailAndPasswordPageState
     });
   }
 
-  //
   bool passWordConfirmed() {
     if (_passWordController.text.trim() ==
         _confirmPasswordController.text.trim()) {
@@ -118,7 +114,6 @@ class _RegisterUserWithEmailAndPasswordPageState
     }
   }
 
-  //
   void showNotification(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -151,18 +146,20 @@ class _RegisterUserWithEmailAndPasswordPageState
     return Scaffold(
       backgroundColor: background,
       body: Padding(
-        padding: const EdgeInsets.only(left: 18.0, top: 70.0, right: 18.0),
+        padding: const EdgeInsets.only(left: 18.0, top: 100.0, right: 18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //title email
-            Text(
-              'Màn hình đăng ký',
-              style: GoogleFonts.arsenal(
-                  fontSize: 30.0, fontWeight: FontWeight.bold, color: black),
+            Center(
+              child: Text(
+                'Màn hình đăng ký',
+                style: GoogleFonts.arsenal(
+                    fontSize: 30.0, fontWeight: FontWeight.bold, color: blue),
+              ),
             ),
             SizedBox(
-              height: 30.0,
+              height: 35.0,
             ),
             //form email
             TextFormFieldEmail(
@@ -251,7 +248,7 @@ class _RegisterUserWithEmailAndPasswordPageState
             //form password
             TextFormFieldPassword(
               hintText: 'Mật khẩu',
-              prefixIconData: Icons.vpn_key_sharp,
+              prefixIconData: Icons.key,
               suffixIcon: IconButton(
                 icon: Icon(
                   isObsecurePassword ? Icons.visibility : Icons.visibility_off,
@@ -273,7 +270,7 @@ class _RegisterUserWithEmailAndPasswordPageState
             //form confirm password
             MyTextFormField(
               hintText: 'Xác nhận mật khẩu',
-              prefixIconData: Icons.vpn_key_sharp,
+              prefixIconData: Icons.key,
               suffixIcon: IconButton(
                 icon: Icon(
                   isObsecureConfirmPassword

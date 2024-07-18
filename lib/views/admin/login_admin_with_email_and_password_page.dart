@@ -19,24 +19,20 @@ class LoginAdminWithEmailAndPassWordPage extends StatefulWidget {
 
 class _LoginAdminWithEmailAndPassWordPageState
     extends State<LoginAdminWithEmailAndPassWordPage> {
-  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
-  // FirebaseServices _services = FirebaseServices();
-  //
   FirebaseFirestore db = FirebaseFirestore.instance;
   final _emailController = TextEditingController();
   final _passWordController = TextEditingController();
   bool isObsecure = false;
-  //
+  
   void loginAdminEmail() async {
     String email = _emailController.text.trim();
     String password = _passWordController.text.trim();
 
     if (email.isEmpty || password.isEmpty) {
       showNotification(context, "Đăng nhập không hợp lệ, vui lòng thử lại");
-    } else if(password.length < 6){
+    } else if (password.length < 6) {
       showNotification(context, "Mật khẩu phải có ít nhất 6 kí tự");
-    }else {
+    } else {
       try {
         UserCredential userCredential =
             await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -64,7 +60,6 @@ class _LoginAdminWithEmailAndPassWordPageState
     }
   }
 
-  //
   void showNotification(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -98,7 +93,7 @@ class _LoginAdminWithEmailAndPassWordPageState
       backgroundColor: background,
       body: Padding(
         padding: const EdgeInsets.only(
-            left: 18.0, top: 90.0, right: 18.0, bottom: 60),
+            left: 18.0, top: 60.0, right: 18.0, bottom: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,11 +114,12 @@ class _LoginAdminWithEmailAndPassWordPageState
             SizedBox(
               height: 30,
             ),
-            //title email
-            Text(
-              'Đăng nhập Admin',
-              style: GoogleFonts.arsenal(
-                  fontSize: 30.0, fontWeight: FontWeight.bold, color: black),
+            Center(
+              child: Text(
+                'Đăng nhập Admin',
+                style: GoogleFonts.arsenal(
+                    fontSize: 30.0, fontWeight: FontWeight.bold, color: blue),
+              ),
             ),
             SizedBox(
               height: 150.0,
@@ -190,66 +186,6 @@ class _LoginAdminWithEmailAndPassWordPageState
             SizedBox(
               height: 30.0,
             ),
-            // //or continue with
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Divider(
-            //         thickness: 1,
-            //         color: grey,
-            //       ),
-            //     ),
-            //     Text(
-            //       '      hoặc      ',
-            //       style: GoogleFonts.roboto(color: black),
-            //     ),
-            //     Expanded(
-            //       child: Divider(
-            //         thickness: 1,
-            //         color: black,
-            //       ),
-            //     )
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 30.0,
-            // ),
-            // //or login with facebook, email, google,...
-            // Center(
-            //     child: Text('ĐĂNG NHẬP BẰNG',
-            //         style: GoogleFonts.roboto(color: black))),
-            // SizedBox(
-            //   height: 20.0,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     // LoginWithMore(imagePath: 'assets/icons/facebook.png'),
-            //     // LoginWithMore(imagePath: 'assets/icons/google.png'),
-            //     // LoginWithMore(imagePath: 'assets/icons/apple.png'),
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 50,
-            // ),
-            // //text tip
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     Text('Chưa có tài khoản? ',
-            //         style: GoogleFonts.roboto(color: black)),
-            //     GestureDetector(
-            //       onTap: widget.onTap,
-            //       child: Text(
-            //         'Đăng ký ngay!',
-            //         style: GoogleFonts.roboto(
-            //             color: blue,
-            //             fontWeight: FontWeight.bold,
-            //             decoration: TextDecoration.underline),
-            //       ),
-            //     )
-            //   ],
-            // )
           ],
         ),
       ),

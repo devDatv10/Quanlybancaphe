@@ -71,7 +71,6 @@ class _LoginUserWithEmailAndPasswordPageState
     super.dispose();
   }
 
-  //
   void showNotification(BuildContext context, String message) {
     showDialog(
       context: context,
@@ -104,7 +103,7 @@ class _LoginUserWithEmailAndPasswordPageState
     return Scaffold(
       backgroundColor: background,
       body: Padding(
-        padding: const EdgeInsets.only(left: 18.0, top: 70.0, right: 18.0),
+        padding: const EdgeInsets.only(left: 18.0, top: 60.0, right: 18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -125,10 +124,12 @@ class _LoginUserWithEmailAndPasswordPageState
             SizedBox(
               height: 30,
             ),
-            Text(
-              'Màn hình  đăng nhập',
-              style: GoogleFonts.arsenal(
-                  fontSize: 30.0, fontWeight: FontWeight.bold, color: black),
+            Center(
+              child: Text(
+                'Màn hình  đăng nhập',
+                style: GoogleFonts.arsenal(
+                    fontSize: 30.0, fontWeight: FontWeight.bold, color: blue),
+              ),
             ),
             SizedBox(
               height: 190.0,
@@ -156,7 +157,7 @@ class _LoginUserWithEmailAndPasswordPageState
             //form password
             TextFormFieldPassword(
               hintText: 'Nhập mật khẩu',
-              prefixIconData: Icons.vpn_key_sharp,
+              prefixIconData: Icons.key,
               suffixIcon: IconButton(
                 icon: Icon(
                   isObsecure ? Icons.visibility : Icons.visibility_off,
@@ -198,49 +199,12 @@ class _LoginUserWithEmailAndPasswordPageState
             SizedBox(
               height: 40.0,
             ),
-            //or continue with
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Divider(
-            //         thickness: 1,
-            //         color: black,
-            //       ),
-            //     ),
-            //     Text(
-            //       '      hoặc      ',
-            //       style: GoogleFonts.roboto(color: black),
-            //     ),
-            //     Expanded(
-            //       child: Divider(
-            //         thickness: 1,
-            //         color: black,
-            //       ),
-            //     )
-            //   ],
-            // ),
             SizedBox(
               height: 50.0,
             ),
-            //or login with facebook, email, google,...
-            // Center(
-            //     child: Text('ĐĂNG NHẬP BẰNG',
-            //         style: GoogleFonts.roboto(color: black))),
-            SizedBox(
-              height: 20.0,
-            ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     LoginWithMore(imagePath: 'assets/icons/facebook.png'),
-            //     LoginWithMore(imagePath: 'assets/icons/google.png'),
-            //     LoginWithMore(imagePath: 'assets/icons/apple.png'),
-            //   ],
-            // ),
             SizedBox(
               height: 70,
             ),
-            //text tip
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

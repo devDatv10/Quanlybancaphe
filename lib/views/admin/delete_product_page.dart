@@ -242,7 +242,6 @@ class _DeleteProductPageState extends State<DeleteProductPage> {
             ),
           ),
         ),
-        // Hiển thị danh sách sản phẩm
         Expanded(
           child: Padding(
             padding:
@@ -350,10 +349,7 @@ class _DeleteProductPageState extends State<DeleteProductPage> {
                                 ),
                                 onPressed: () {
                                   if (selectedCategory.isNotEmpty) {
-                                    // Lấy thông tin sản phẩm cần xóa
                                     Products productToDelete = product;
-
-                                    // Gọi hàm xóa sản phẩm
                                     _showConfirmDelete(productToDelete);
                                   }
                                 },
@@ -369,7 +365,6 @@ class _DeleteProductPageState extends State<DeleteProductPage> {
             ),
           ),
         ),
-        // Nút hoàn thành
         Padding(
           padding: const EdgeInsets.only(left: 18.0, right: 18.0, bottom: 18.0),
           child: MyButton(

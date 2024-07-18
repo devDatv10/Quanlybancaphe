@@ -12,7 +12,6 @@ class LoginRegisterSwitcherUserPage extends StatefulWidget {
 class _LoginRegisterSwitcherUserPageState extends State<LoginRegisterSwitcherUserPage> {
   bool showloginPage  = true;
 
-  //function toggle
   void togglePage(){
     setState(() {
       showloginPage = !showloginPage;

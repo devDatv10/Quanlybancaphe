@@ -15,7 +15,7 @@ class DashboardPage extends StatelessWidget {
           children: [
             Container(
               alignment: Alignment.topLeft,
-              child: Text('Tổng quan', style: GoogleFonts.arsenal(fontSize: 30, color: black, fontWeight: FontWeight.bold),),
+              child: Text('Doanh thu', style: GoogleFonts.arsenal(fontSize: 30, color: black, fontWeight: FontWeight.bold),),
             )
           ],
         ),

@@ -1,45 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quan_ly_ban_ca_phe/themes/theme.dart';
 
-class ProductCategoryForm extends StatefulWidget {
+class ProductCategoryForm extends StatelessWidget {
   final String titleProduct;
-  final Widget destinationPage;
+  final bool isSelected;
+  final Function() onTap;
 
-  const ProductCategoryForm({super.key, required this.titleProduct, required this.destinationPage});
+  const ProductCategoryForm({
+    Key? key,
+    required this.titleProduct,
+    required this.isSelected,
+    required this.onTap,
+  }) : super(key: key);
 
-  @override
-  State<ProductCategoryForm> createState() => _ProductCategoryFormState();
-}
-
-class _ProductCategoryFormState extends State<ProductCategoryForm> {
-  bool isPressed = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-        setState(() {
-          isPressed = !isPressed;
-        });
-        Get.to(widget.destinationPage);
-      },
+      onTap: onTap,
       child: Container(
         height: 25,
         width: 70,
         decoration: BoxDecoration(
-          color: isPressed ? primaryColors : white,
-          borderRadius: BorderRadius.circular(18.0),
-          border: isPressed ? null : Border.all(color: primaryColors ,width: 1,),
+          color: isSelected ? blue : white,
+          borderRadius: BorderRadius.circular(8.0),
+          border: !isSelected
+              ? Border.all(
+                  color: blue,
+                  width: 1,
+                )
+              : null,
         ),
         child: Center(
           child: Text(
-            widget.titleProduct,
+            titleProduct,
             style: GoogleFonts.arsenal(
-              color: isPressed ? white : primaryColors,
+              color: isSelected ? white : blue,
               fontWeight: FontWeight.bold,
-              fontSize: 14
+              fontSize: 14,
             ),
           ),
         ),

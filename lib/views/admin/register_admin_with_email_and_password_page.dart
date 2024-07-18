@@ -10,83 +10,79 @@ import 'package:quan_ly_ban_ca_phe/widgets/text_form_field_password.dart';
 
 class RegisterAdminWithEmailAndPasswordPage extends StatefulWidget {
   final Function()? onTap;
-  const RegisterAdminWithEmailAndPasswordPage({Key? key, required this.onTap}) : super(key: key);
+  const RegisterAdminWithEmailAndPasswordPage({Key? key, required this.onTap})
+      : super(key: key);
 
   @override
-  _RegisterAdminWithEmailAndPasswordPageState createState() => _RegisterAdminWithEmailAndPasswordPageState();
+  _RegisterAdminWithEmailAndPasswordPageState createState() =>
+      _RegisterAdminWithEmailAndPasswordPageState();
 }
 
-class _RegisterAdminWithEmailAndPasswordPageState extends State<RegisterAdminWithEmailAndPasswordPage> {
+class _RegisterAdminWithEmailAndPasswordPageState
+    extends State<RegisterAdminWithEmailAndPasswordPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   bool isObsecure = false;
 
-  //
-void registerAdmin() async {
-  String email = _emailController.text.trim();
-  String password = _passwordController.text.trim();
+  void registerAdmin() async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
 
-  // Kiểm tra nếu có trường nào bị trống
-  if (email.isEmpty || password.isEmpty) {
-    showEmptyFieldsAlert();
-    return;
-  }
-
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-
-    if (userCredential.user != null) {
-      // Lưu thông tin admin vào Firestore
-      await FirebaseFirestore.instance
-          .collection('Admins')
-          .doc(userCredential.user!.uid)
-          .set({
-        'email': email,
-        'passWord': password,
-      });
-
-      showSuccessAlert("Đăng ký thành công với email: $email");
-
-      // Chuyển đến trang AdminPage
-      Navigator.pushReplacementNamed(context, '/admin_page');
+    if (email.isEmpty || password.isEmpty) {
+      showEmptyFieldsAlert();
+      return;
     }
-    showSuccessAlert("Đăng ký thành công với email: $email");
-  } catch (e) {
-    print("Error creating admin account: $e");
-    // Xử lý lỗi đăng ký ở đây (hiển thị thông báo lỗi, v.v.)
-  }
-}
 
-  //
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      if (userCredential.user != null) {
+        await FirebaseFirestore.instance
+            .collection('Admins')
+            .doc(userCredential.user!.uid)
+            .set({
+          'email': email,
+          'passWord': password,
+        });
+
+        showSuccessAlert("Đăng ký thành công với email: $email");
+
+        Navigator.pushReplacementNamed(context, '/admin_page');
+      }
+      showSuccessAlert("Đăng ký thành công với email: $email");
+    } catch (e) {
+      print("Error creating admin account: $e");
+    }
+  }
+
   void showSuccessAlert(String message) {
-  showCupertinoDialog(
-    context: context,
-    builder: (context) {
-      return CupertinoAlertDialog(
-        title: Text(
-          "Thông báo",
-          style: GoogleFonts.arsenal(
-            color: primaryColors,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text(
+            "Thông báo",
+            style: GoogleFonts.arsenal(
+              color: blue,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
-        ),
-        content: Text(message),
-        actions: [
-          CupertinoDialogAction(
-            child: Text("OK", style: TextStyle(color: blue)),
-            onPressed: () {
-              Navigator.of(context).pop();
-              // Bạn có thể thêm bất kỳ hành động nào sau khi người dùng nhấn OK
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
+          content: Text(message),
+          actions: [
+            CupertinoDialogAction(
+              child: Text("OK", style: TextStyle(color: blue)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   //
   void showEmptyFieldsAlert() {
@@ -96,7 +92,7 @@ void registerAdmin() async {
         return CupertinoAlertDialog(
           title: Text("Thông báo",
               style: GoogleFonts.arsenal(
-                  color: primaryColors,
+                  color: blue,
                   fontWeight: FontWeight.bold,
                   fontSize: 18)),
           content: Text("Đăng ký không hợp lệ, vui lòng thử lại"),
@@ -142,10 +138,10 @@ void registerAdmin() async {
                   },
                   icon: Icon(
                     Icons.clear,
-                    color: primaryColors,
+                    color: blue,
                   )),
               controller: _emailController,
-              iconColor: primaryColors,
+              iconColor: blue,
             ),
             SizedBox(height: 20.0),
             TextFormFieldPassword(
@@ -154,7 +150,7 @@ void registerAdmin() async {
               suffixIcon: IconButton(
                 icon: Icon(
                   isObsecure ? Icons.visibility : Icons.visibility_off,
-                  color: primaryColors,
+                  color: blue,
                 ),
                 onPressed: () {
                   setState(() {
@@ -163,14 +159,14 @@ void registerAdmin() async {
                 },
               ),
               controller: _passwordController,
-              iconColor: primaryColors,
+              iconColor: blue,
               obscureText: !isObsecure,
             ),
             SizedBox(height: 60.0),
             MyButton(
               text: 'Đăng ký',
               onTap: registerAdmin,
-              buttonColor: primaryColors,
+              buttonColor: blue,
             ),
             SizedBox(
               height: 50.0,

@@ -17,7 +17,6 @@ class _ProductPopularItemState extends State<ProductPopularItem> {
   @override
   void initState() {
     super.initState();
-    // Set up the stream to listen for changes in the "Product Popular" collection
     productsStream = FirebaseFirestore.instance
         .collection('Sản phẩm phổ biến')
         .snapshots()
@@ -37,7 +36,7 @@ class _ProductPopularItemState extends State<ProductPopularItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300, // Set a fixed height for GridView
+      height: 300,
       child: StreamBuilder<List<Products>>(
         stream: productsStream,
         builder: (context, snapshot) {
